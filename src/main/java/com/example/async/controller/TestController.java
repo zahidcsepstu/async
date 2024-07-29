@@ -43,6 +43,18 @@ public class TestController {
                     log.info(s);
                 });
 
+        CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(()->{
+            try {
+                log.info("Current Thread {}", Thread.currentThread().getName());
+                Thread.sleep(5000);
+                log.info("Completed Thread {}", Thread.currentThread().getName());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return "S";
+        });
+
+        log.info("block");
 //        CompletableFuture<Void> allThread = CompletableFuture.allOf(void1,void2,void3);
 //        allThread.join();
 
